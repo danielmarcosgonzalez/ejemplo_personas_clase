@@ -1,5 +1,6 @@
 import express from "npm:express@4.18.2";
 import mongoose from "npm:mongoose@7.6.3";
+import { Request, Response } from "npm:express@4.18.2";
 
 import getPerson from "./resolvers/getPerson.ts";
 import addPerson from "./resolvers/addPerson.ts";
@@ -11,6 +12,9 @@ await mongoose.connect(MONGO_URL);
 const app = express();
 app.use(express.json());
 app
+  .get("/",async(req: Request, res: Response)=>{
+    res.status(404).send("Hola mundo");
+  })
   .get("/getPerson/:dni", getPerson)
   .post("/addPerson", addPerson)
   .put("/updatePerson/:dni", updatePerson)
